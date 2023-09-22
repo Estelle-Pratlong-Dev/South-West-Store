@@ -54,6 +54,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $registerDate = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $tokenRegistration = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $tokenRegistrationLifeTime = null;
+
+    #[ORM\Column]
+    private bool $isVerified = false;
+
+
+	public function __construct(){
+		$this->registerDate = new \DateTime('now');;
+		$this->isVerified = false;
+		$this->tokenRegistrationLifeTime = (new \DateTime('now'))->add(new \DateInterval("P1D"));
+
+	}
+
     public function getId(): ?int
     {
         return $this->id;
@@ -204,6 +221,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRegisterDate(\DateTimeInterface $registerDate): static
     {
         $this->registerDate = $registerDate;
+
+        return $this;
+    }
+
+    public function getTokenRegistration(): ?string
+    {
+        return $this->tokenRegistration;
+    }
+
+    public function setTokenRegistration(?string $tokenRegistration): static
+    {
+        $this->tokenRegistration = $tokenRegistration;
+
+        return $this;
+    }
+
+    public function getTokenRegistrationLifeTime(): ?\DateTimeInterface
+    {
+        return $this->tokenRegistrationLifeTime;
+    }
+
+    public function setTokenRegistrationLifeTime(\DateTimeInterface $tokenRegistrationLifeTime): static
+    {
+        $this->tokenRegistrationLifeTime = $tokenRegistrationLifeTime;
+
+        return $this;
+    }
+
+    public function isIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

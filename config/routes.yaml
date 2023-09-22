@@ -59,6 +59,12 @@ app_logout:
   path: /logout
   controller: App\Controller\DefaultController::index
 
+account_verify:
+  path: /verify/{token}/{id}
+  controller: App\Controller\RegistrationController::verify
+  requirements:
+    id: '\d+'
+
 
 #**** MOT DE PASSE OUBLIE ****
 
