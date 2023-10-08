@@ -2,9 +2,9 @@
 #************************ DIVERS *******************************
 #***************************************************************
 
-# homepage:
-#   path: /
-#   controller: App\Controller\DefaultController::index
+homepage:
+  path: /login
+  controller: App\Controller\SecurityController::login
 
 # mentions:
 #   path: /mentions
@@ -57,7 +57,7 @@ app_login:
 
 app_logout:
   path: /logout
-  controller: App\Controller\DefaultController::index
+  controller: App\Controller\SecurityController::logout
 
 account_verify:
   path: /verify/{token}/{id}
@@ -114,6 +114,10 @@ account_verify:
 #***************************************************************
 #************************* PRODUCTS ****************************
 #***************************************************************
+
+app_products:
+  path: /products/shop-index
+  controller: App\Controller\ProductsController::index
 
 # show_products:
 #   path: /products/shop-index

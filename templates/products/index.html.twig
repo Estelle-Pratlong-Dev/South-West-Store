@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductsController!{% endblock %}
+
+{% block body %}
+
+{% for product in products %}
+	<h1>{{product.title}}</h1>
+{% endfor%}
+
+<div class="example-wrapper">
+    <h1>Hello! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/south-west-store/src/Controller/ProductsController.php'|file_link(0) }}">src/Controller/ProductsController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/south-west-store/templates/products/index.html.twig'|file_link(0) }}">templates/products/index.html.twig</a></code></li>
+    </ul>
+</div>
+{% endblock %}
