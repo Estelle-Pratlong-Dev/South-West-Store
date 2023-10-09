@@ -81,6 +81,10 @@ account_verify:
 #************************** ADMIN ******************************
 #***************************************************************
 
+admin:
+  path: /admin
+  controller: App\Controller\Admin\DashboardController::index
+
 # add_product:
 #   path: /admin/add-product
 #   controller: App\Controller\ProductsController::addProducts

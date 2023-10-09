@@ -17,13 +17,13 @@ class Products
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column]
-    private ?int $reference = null;
+    #[ORM\Column(length: 255)]
+    private ?string $reference = null;
 
     #[ORM\Column(length: 255)]
     private ?string $size = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
+    #[ORM\Column(length: 255)]
     private ?string $color = null;
 
     #[ORM\Column]
@@ -58,12 +58,12 @@ class Products
         return $this;
     }
 
-    public function getReference(): ?int
+    public function getReference(): ?string
     {
         return $this->reference;
     }
 
-    public function setReference(int $reference): static
+    public function setReference(string $reference): static
     {
         $this->reference = $reference;
 

@@ -16,10 +16,6 @@ class UserChecker implements UserCheckerInterface
             return;
         }
 
-        if ($user->isIsVerified()) {
-            // the message passed to this exception is meant to be displayed to the user
-            throw new CustomUserMessageAccountStatusException("Votre compte utilisateur n'est pas vérfié, merci de le confirmer depuis vos mails avant le {$user->getTokenRegistrationLifeTime()->format('d-m-Y H:i:s')}");
-        }
     }
 
     public function checkPostAuth(UserInterface $user): void
@@ -28,9 +24,10 @@ class UserChecker implements UserCheckerInterface
             return;
         }
 
-        // user account is expired, the user may be notified
-        if ($user->isExpired()) {
-            throw new AccountExpiredException('...');
+		if ($user->isIsVerified()) {
+            // the message passed to this exception is meant to be displayed to the user
+            throw new CustomUserMessageAccountStatusException("Votre compte utilisateur n'est pas vérfié, merci de le confirmer depuis vos mails avant le {$user->getTokenRegistrationLifeTime()->format('d-m-Y H:i:s')}");
         }
+		
     }
 }
