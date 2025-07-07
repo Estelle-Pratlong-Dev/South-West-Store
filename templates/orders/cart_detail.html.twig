@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier
+{% endblock %}
+
+
+{% block body %}
+
+    <main id="cart_details">
+        <div class="container">
+            <h2>Mon panier</h2>
+
+
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+
+            <div class="table-responsive">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Marque</th>
+                            <th>Modèle</th>
+                            <th>SKU</th>
+                            <th>Taille</th>
+                            <th>Prix Unitaire</th>
+                            <th>Voir plus</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key, cart_item in cart_items %}
+                            <tr>
+                                <td>{{ brandsList[cart_item.brand] }}</td>
+                                <td>{{ cart_item.model }}</td>
+                                <td>{{ cart_item.sku }}</td>
+                                <td>{{ cart_item.shoe_size }}</td>
+                                <td>{{ cart_item.price|number_format(2, ',', ' ') }}
+                                    €</td>
+
+                                <td>
+                                    <a class="btn btn-secondary" href=" {{ path('view_details',{id:cart_item.id_product} ) }}">Détails</a>
+                                </td>
+
+                                <td>
+                                    <a id="#delete-cart-product" href="{{ path('delete_cart_product' ,{key : key }) }}" class="btn btn-danger">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <th>Prix total :</th>
+                            <td>
+                                {{ app.session.get('total_price')|number_format(2, ',', ' ') }}
+                                €</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+
+            <a id="clean-cart" href="{{ path ('clean_cart') }}" class="btn clear">Vider le panier</a>
+
+
+            <a id="valid-order" href="{{ path ('validate_order') }}" class="btn validate">Valider la commande</a>
+
+
+        </main>
+
+
+    {% endblock %}
+
+    {% block javascripts %}
+        <script>
+            $("#clean-cart").click(function (e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Etes-vous sur(e) de vouloir vider le panier?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui !',
+                    cancelButtonText: 'Non !'
+                }).then((result) => {
+                    if (result.value) {
+                        $.get('{{ path ('clean_cart') }}', function (res) {
+                            Swal.fire('Vide', 'Le panier à été vidé', 'success').then((result) => {
+                                window.location.reload();
+                            });
+                        });
+                    };
+                });
+
+            });
+
+            $("#valid-order").click(function (e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Etes-vous sur(e) de vouloir valider votre commande?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui !',
+                    cancelButtonText: 'Non !'
+                }).then((result) => {
+                    if (result.value) {
+                        window.location.assign('{{ path ('validate_order') }}');
+                    };
+
+                });
+
+            });
+        </script>
+    {% endblock %}

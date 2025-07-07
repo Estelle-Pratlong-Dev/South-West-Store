@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le shop
+{% endblock %}
+
+{% block body %}
+    <main id="show_products">
+
+
+        <div class="container">
+            {% if error is not empty %}
+                <div class="alert alert-danger">{{error|raw}}</div>
+            {% endif %}
+            <div class="row">
+                <aside class="col-md-3 mb-3 d-none d-md-block">
+                    <form action="{{ current_url }}" method="get" class="border rounded border-dark position-sticky" style="top:30px">
+                        <div class="mx-3 mt-2">
+                            <label for="size" class="text-uppercase font-weight-bold">Marques</label>
+                            <ul class="list-unstyled">
+
+                                {% for keyBrand, valueBrand in brandsList %}
+                                    <li class="mt-1">
+                                        <a href="{{current_url}}?search=yes&brand={{keyBrand}} " title=" {{ valueBrand }} " class="text-uppercase w-100 btn btn-outline-secondary {{ (keyBrand == selectedBrand) ? 'active' : '' }}">{{ valueBrand }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="mx-3 mt-2">
+                            <label for="size" class="text-uppercase font-weight-bold">Tailles (US)</label>
+                            <div class="row no-gutters">
+                                {% for keySize, valueSize in sizesList %}
+                                    <div class="col-lg-3 col-md-6 mb-1">
+                                        <a href="{{current_url}}?search=yes&brand={{selectedBrand}}&size={{valueSize}}" title=" {{ valueSize }} " class=" btn btn-outline-secondary btn-size {{ (valueSize == selectedSize) ? 'active' : '' }}">{{ valueSize }}</a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="mx-3  mt-2">
+                            <label for="size" class="text-uppercase font-weight-bold">Couleurs</label>
+                            <div class="row no-gutters">
+                                {% for keyColor, valueColor in colors %}
+                                    <div class="col-lg-3 col-md-6 mb-1">
+                                        <a href="{{current_url}}?search=yes&brand={{selectedBrand}}&size={{selectedSize}}&color={{keyColor}}" title=" {{ keyColor }} " class="btn border btn-outline-secondary border-dark rounded-0 btn-color {{ (keyColor is same as(selectedColor)) ? 'focus' : '' }}" style="{{ valueColor }}"></a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="mx-3">
+                            <label for="size" class="text-uppercase font-weight-bold">Prix</label>
+                            <ul class="row list-unstyled">
+                                <li class="mx-3 mt-2 w-100">
+                                    <a href="{{current_url}}?search=yes&brand={{selectedBrand}}&size={{selectedSize}}&color={{selectedColor}}&pricemax=500" title=" Moins de 500€" class="w-100 btn btn-outline-secondary {{ (selectedMaxPrice == '500') ? 'active' : '' }}">Moins de 500€</a>
+                                </li>
+                                <li class="mx-3 mt-2 w-100">
+                                    <a href="{{current_url}}?search=yes&brand={{selectedBrand}}&size={{selectedSize}}&color={{selectedColor}}&pricemin=500&pricemax=1000" title="500€ à 1000€" class="w-100 btn btn-outline-secondary {{ (selectedMaxPrice == '1000') ? 'active' : '' }}">500€ à 1000€</a>
+                                </li>
+                                <li class="mx-3 mt-2 w-100">
+                                    <a href="{{current_url}}?search=yes&brand={{selectedBrand}}&size={{selectedSize}}&color={{selectedColor}}&pricemin=1000" title="Plus de 1000€" class="w-100 btn btn-outline-secondary {{ (selectedMinPrice == '1000') ? 'active' : '' }}">Plus de 1000€</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mx-3">
+                            <div class="row no-gutters text-center">
+                                <select onchange="if(this.selectedIndex!=0) self.location=this.options[this.selectedIndex].value" class="border-secondary form-control text-center">
+
+                                    <option value="0" selected>--Trier par--</option>
+                                    <option value="{{current_url}}?search=yes&brand={{selectedBrand}}&size={{selectedSize}}&color={{selectedColor}}&pricemin={{selectedMinPrice}}&pricemax={{selectedMaxPrice}}&orderdir=asc">Prix croissant</option>
+                                    <option value="{{current_url}}?search=yes&brand={{selectedBrand}}&size={{selectedSize}}&color={{selectedColor}}&pricemin={{selectedMinPrice}}&pricemax={{selectedMaxPrice}}&orderdir=desc">Prix décroissant</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row no-gutters">
+                            <div class="mx-auto mt-2 mb-3 justify-content-center">
+                                <a href="{{current_url}}" title="Reinitialiser" class="text-uppercase w-100 btn btn-outline-secondary">
+                                    <i class="far fa-times-circle"></i>
+                                    Reinitialiser</a>
+
+                            </div>
+                        </div>
+
+                    </form>
+                </aside>
+
+                <div class="col-md-9">
+                    <div class="row no-gutters">
+
+
+                        {% if products is not empty %}
+                            {% for product in products %}
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card bg-light m-1 border-0">
+                                        <div class="card-body">
+                                            <p class="card-text text-uppercase">{{ brandsList[product.getBrand()] }}</p>
+                                            <p class="card-text text-capitalize">{{ product.getModel()|slice(0,35) ~ ' ...'  }}</p>
+                                            <p class="card-text font-weight-bold ">{{ product.getPrice() }}
+                                                €</p>
+                                            <img src="{{ '/'~ product.getPicture1() }}" class="card-img-top mb-2" alt="photo du produit">
+                                            <a href="{{path('view_details',{id:product.getId()})}}" class="btn btn-outline-dark btn-block btn-sm text-uppercase">Voir plus</a>
+                                            <form method="post">
+                                                <input type="hidden" name="id_product" value="{{ product.getId() }}">
+                                                <input type="hidden" name="action" value="add-to-cart">
+                                                <button type="submit" class="add-product btn btn-outline-dark btn-block btn-sm text-uppercase font-weight-bold w-100"><img src="/img/icons/buy.png" class="p-1" alt="logo buy">
+
+
+                                                    Ajouter au panier</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+                        {% else %}
+
+                            <div class="alert alert-warning" role="alert">
+                                <p>Nous ne disposons pas de chaussures
+                                    {% if selectedBrand != 0 %}
+                                        {{ 'de marque ' ~ brandsList[selectedBrand]|upper ~ ' et ' }}
+                                    {% endif %}
+                                    {% if selectedSize != 0 %}
+                                        {{ 'de taille ' ~ selectedSize }}
+                                    {% endif %}
+                                    {% if selectedColor != '0' %}
+                                        {{ 'de couleur ' ~ selectedColor }}
+                                    {% endif %}
+                                </p>
+                            </div>
+
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    {{ knp_pagination_render(products) }}
+                </div>
+            </div>
+        </main>
+    {% endblock %}

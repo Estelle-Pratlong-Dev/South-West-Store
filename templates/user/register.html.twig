@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription
+
+{% endblock %}
+
+{% block body %}
+
+
+    <main id="user_register" class="container">
+        <h2>Inscription</h2>
+
+        {% if erreur %}
+            <div class="alert alert-danger col-md-8">{{ erreur|join('<br>')|raw }}</div>
+        {% endif %}
+
+        {% if msg %}
+            <div class="alert alert-success col-md-8">{{ msg }}</div>
+        {% endif %}
+
+        <form method="post" class="col-md-8">
+
+            <div class="row">
+                <div class="col">
+                    <input type="text" name="name" class="form-control" placeholder="Nom" value="{{ donnees.name ?? '' }}">
+                </div>
+                <div class="col">
+                    <input type="text" name="firstname" class="form-control" placeholder="Prénom" value="{{ donnees.firstname ?? '' }}">
+                </div>
+            </div>
+
+            <input type="text" name="address" class="form-control" placeholder="Adresse" value="{{ donnees.address ?? '' }}">
+
+            <input type="text" name="complement" class="form-control" placeholder="Complément" value="{{ donnees.complement ?? '' }}">
+
+            <div class="row">
+                <div class=" col">
+                    <input type="text" name="city" class="form-control" placeholder="Ville" value="{{ donnees.city ?? '' }}">
+
+                </div>
+                <div class="col">
+                    <input type="number" name="pC" class="form-control" placeholder="Code postal" value="{{ donnees.pC ?? '' }}">
+                </div>
+            </div>
+
+            <input type="phone" name="phone" class="form-control" placeholder="Télephone" value="{{ donnees.phone ?? '' }}">
+
+            <input type="email" name="email" class="form-control" placeholder="Email" value="{{ donnees.email ?? '' }}">
+
+            <input type="password" name="pwd" class="form-control" placeholder="Mot de passe">
+
+            <input type="password" name="pwdVerif" class="form-control" placeholder="Confirmer le mot de passe">
+
+
+            <button class="btn-lg btn-form" type="submit">
+                S'inscrire
+            </button>
+
+        </form>
+    </main>
+
+
+{% endblock %}

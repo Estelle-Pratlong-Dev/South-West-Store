@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil
+{% endblock %}
+
+{% block body %}
+
+    <main id="user_home" class="container">
+
+        <h2>Bonjour
+            {{ user.getFirstName() }}
+            !</h2>
+
+        <h4>Informations personnelles</h>
+
+        <div class="table-responsive-sm">
+            <table class="table-striped">
+                <tr>
+                    <th>Email:</th>
+                    <td>{{ user.getEmail() }}</td>
+                </tr>
+                <tr>
+                    <th>Nom :</th>
+                    <td>{{ user.getLastName() }}</td>
+                </tr>
+                <tr>
+                    <th>Prénom :
+                    </th>
+                    <td>{{ user.getFirstName() }}</td>
+                </tr>
+                <tr>
+                    <th>Adresse :</th>
+                    <td>{{ user.getAddress() }}</td>
+                </tr>
+                <tr>
+                    <th>Complément d'adresse :</th>
+                    <td>{{ user.getAdditionalAddress() }}</td>
+                </tr>
+                <tr>
+                    <th>Code Postal :</th>
+                    <td>{{ user.getPostalCode() }}</td>
+                </tr>
+                <tr>
+                    <th>Ville :</th>
+                    <td>{{ user.getCity() }}</td>
+                </tr>
+                <tr>
+                    <th>Téléphone :</th>
+                    <td>{{ user.getPhoneNumber() }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <p>
+            <a href="{{ path('user_edit_profile') }}" class="modify">Modifier mes infos</a>
+
+            <a href="{{ path('app_forgotten_password') }}" class="modify">Modifier mon mot de passe</a>
+        </p>
+
+        <p class="pt-3">
+            <a id="delete-profile" href="{{ path('delete_profile' ,{id : user.getId() }) }}" class="delete">Supprimer mon compte</a>
+        </p>
+
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+        $("#delete-profile").click(function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Etes-vous sur(e) de vouloir supprimer votre compte?',
+                text: "Vos données seront à jamais perdues",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui !',
+                cancelButtonText: 'Non !'
+            }).then((result) => {
+                if (result.value) {
+                    $.get('{{ path('delete_profile' ,{id : user.getId() }) }}', function (res) {
+                        Swal.fire('Supprimé', 'Profil supprimé', 'success').then((result) => {
+                            window.location.assign('{{ path ('homepage') }}');
+                        });
+                    });
+                };
+            });
+        });
+    </script>
+{% endblock %}

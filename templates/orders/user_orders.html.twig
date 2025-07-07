@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes
+{% endblock %}
+
+{% block body %}
+
+    <main id="user_orders" class="container">
+
+        <h2>Historique de commande</h2>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <th>Date</th>
+                    <th>Articles</th>
+                    <th>Prix Total</th>
+                </thead>
+                <tbody>
+                    {% for orders in orders %}
+                        <tr>
+                            <td>{{ orders.getDate()|date("d-m-Y")}}</td>
+                            <td>
+                                <ul>
+                                    {% for product in orders.getCart() %}
+                                        <li>{{brand[product['brand']] ~ ' - ' ~ product['model']}}
+                                            ->
+                                            <a href=" {{ path('view_details', {id : product['id_product']} ) }}">
+                                                Fiche produit</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>{{ orders.getPrice() }}
+                                €</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+{% endblock %}

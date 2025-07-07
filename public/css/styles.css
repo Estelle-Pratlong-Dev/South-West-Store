@@ -1,0 +1,575 @@
+/***************************************************************
+Homogénéité des "boîtes" HTML
+***************************************************************/
+
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
+
+/***************************************************************
+Styles généraux
+***************************************************************/
+main {
+    margin: 50px auto;
+    min-height: 50vh;
+}
+
+h1 {
+    color: #FFF;
+}
+
+h2,
+h3 {
+    color: #8A0F0F;
+}
+
+h2 {
+    text-align: center;
+    margin: 50px auto;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: #990000;
+    text-decoration: none;
+}
+
+button.swal2-confirm.swal2-styled, button.swal2-cancel.swal2-styled{
+    transition: 0.6s;
+    font-family: 'Josefin Sans', sans-serif;
+}
+button.swal2-confirm.swal2-styled:hover, button.swal2-cancel.swal2-styled:hover{
+    transition: 0.6s;
+    border: none;
+    background: #5f5f5f;
+    text-shadow: 1px 1px 1px #f0f0f0;
+    box-shadow: 3px 3px 5px #4c4c4c;
+}
+
+
+
+/***************************************************************
+liste des polices
+***************************************************************/
+h1,
+h2,
+h3,
+a {
+    font-family: 'Love Ya Like A Sister', cursive;
+}
+
+p,
+h4,
+h5,
+button,
+form {
+
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+/***************************************************************
+HEADER
+***************************************************************/
+header a {
+    text-align: center;
+}
+
+h1 {
+    font-size: 1.4em;
+    text-shadow: 0px 3px 0px #b2a98f,
+        0px 4px 10px rgba(0, 0, 0, 0.15),
+        0px 8px 2px rgba(0, 0, 0, 0.1),
+        0px 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    overflow: hidden;
+    position: relative;
+}
+
+header .vid {
+    position: absolute;
+    top: -25;
+    width: 100%;
+}
+
+header .container {
+    position: relative;
+}
+
+/***************************************************************
+NAVBAR
+***************************************************************/
+
+nav {
+    margin: -1em;
+    padding: 20px 0 !important;
+    display: flex;
+    justify-content: space-between;
+    background: rgba(1, 1, 1, 0.8);
+    border-top: 3px solid #CF1717;
+    border-bottom: 3px solid #CF1717;
+}
+
+nav a {
+    color: #fff;
+}
+
+nav .left,
+nav .right {
+    display: flex;
+}
+
+/***************************************************************
+FORMULAIRES
+***************************************************************/
+form {
+    margin: 0 auto;
+    text-align: center;
+}
+
+main div.alert {
+    text-align: center;
+    margin: 10px auto;
+}
+
+form input,
+form select,
+form textarea {
+    border: none;
+    border-bottom: 2px solid lightgrey;
+    box-shadow: 1px 1px 1px red;
+    margin-top: 10px;
+}
+
+form button.btn-form {
+    color: #CF1717;
+    border: none;
+    box-shadow: 1px 1px 1px red;
+    transition: 0.6s;
+}
+
+form button.btn-form:hover {
+    transition: 0.6s;
+    border: none;
+    box-shadow: 5px 5px 1px #990000;
+}
+
+form .login {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px auto;
+}
+
+form .links {
+    text-align: center;
+    margin: 10px auto;
+}
+
+form button {
+    margin-top: 20px;
+}
+
+
+
+/***************************************************************
+TABLEAUX HISTORIQUE COMMANDES (USERS & ADMINS)
+***************************************************************/
+
+table {
+    text-align: center;
+}
+
+table thead,
+table tfoot {
+    background: #d9d0d0;
+    border-top: 3px #333 solid;
+    border-bottom: 3px #333 solid;
+}
+
+table td {
+    border-top: 2px #990000 solid;
+    border-bottom: 2px #990000 solid;
+}
+
+
+table ul li {
+    list-style: none;
+}
+
+#edit_product table thead a {
+    font-size: 1.2em;
+}
+
+
+/***************************************************************
+PAGE ACCUEIL (#home)
+***************************************************************/
+
+#home section {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#home .video {
+    padding: 0;
+    width: 70%;
+}
+
+#home .staff .picture img {
+    width: 60%;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px #CF1717;
+    margin: 3%;
+}
+
+#home .staff .picture {
+    margin: 20px auto;
+}
+
+#home .staff .logo {
+    margin: -50px auto;
+}
+
+#home .carrousel_size {
+    width: 70%;
+}
+
+#home .staff .member-top {
+    margin-bottom: 70%
+}
+
+/***************************************************************
+PAGE SHOP( #show_products)
+***************************************************************/
+#show_products form {
+    margin: 0;
+}
+
+#show_products select {
+    box-shadow: none;
+}
+
+#show_products aside {
+    max-height: 100vh;
+}
+
+#show_products .card-body {
+    height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#show_products .navigation {
+    margin: auto;
+}
+
+#show_products .navigation span {
+    margin: 10px;
+    font-size: 1.2em;
+}
+
+#show_products .navigation span.current {
+    font-weight: bolder;
+    color: #990000;
+}
+
+.btn-size {
+    min-width: 56px;
+}
+
+.btn-color {
+    min-height: 24px;
+    min-width: 24px;
+}
+
+
+/***************************************************************
+PAGE DETAIL PRODUIT (#product_detail)
+***************************************************************/
+#product_detail form {
+    margin: 0;
+}
+
+#product_detail .card {
+    padding: 10px;
+}
+
+#product_detail div.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#product_detail .carousel-indicators li {
+    background-color: #000;
+    margin-bottom: -20px;
+}
+
+#product_detail .prev-icon i,
+#product_detail .next-icon i {
+    color: #000;
+}
+
+.modal-body {
+    max-height: 65vh;
+    overflow: hidden scroll;
+}
+
+/***************************************************************
+PAGE PANIER (#cart_details)
+***************************************************************/
+
+#cart_details {
+    min-height: 100vh;
+    margin: 50px auto;
+    text-align: center;
+}
+
+#cart_details a.validate,
+#cart_details a.clear {
+    background: #f0f0f0;
+    padding: 1%;
+    color: #CF1717;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px red;
+    transition: 0.6s;
+}
+
+#cart_details a.validate:hover {
+    transition: 0.6s;
+    border: none;
+    box-shadow: 5px 5px 1px #990000;
+}
+
+#cart_details a.clear:hover {
+    transition: 0.6s;
+    border: none;
+    background: #5f5f5f;
+    text-shadow: 1px 1px 1px #f0f0f0;
+    box-shadow: 5px 5px 1px #990000;
+}
+/***************************************************************
+PAGE SESSION USER (#user_home) & PAGE VALIDATION COMMANDE (#buy-cart)
+***************************************************************/
+
+#user_home h3 {
+    margin: 30px auto;
+}
+
+#user_home div,
+#buy-cart div {
+    margin: 30px auto;
+    text-align: left;
+}
+
+#user_home a:hover {
+    color: #CF1717;
+}
+
+/***************************************************************
+PAGE EDIT USER INFO (#user_home)
+***************************************************************/
+
+#user_home {
+    text-align: center;
+}
+
+#user_home table {
+    margin: auto;
+
+}
+
+#user_home table td,
+#user_home table td {
+    border: none;
+    padding: 2%;
+}
+
+#user_home a.modify,
+#user_home a.delete {
+    background: #f0f0f0;
+    padding: 1%;
+    color: #CF1717;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px red;
+    transition: 0.6s;
+}
+
+#user_home a.modify:hover {
+    transition: 0.6s;
+    border: none;
+    box-shadow: 5px 5px 1px #990000;
+}
+
+#user_home a.delete:hover {
+    transition: 0.6s;
+    border: none;
+    background: #5f5f5f;
+    text-shadow: 1px 1px 1px #f0f0f0;
+    box-shadow: 5px 5px 1px #990000;
+}
+
+/***************************************************************
+PAGE SESSION ADMIN ADD ARTICLE (#add_product)
+***************************************************************/
+#add_product .files input{
+    border-radius: 5px;
+
+}
+
+#add_product button{
+    transition: 0.6s;
+    
+}
+#add_product button:hover{
+    transition: 0.6s;
+    box-shadow: 5px 5px 5px #990000;
+}
+
+
+/***************************************************************
+PAGE SESSION ADMIN MODIFIER ARTICLE (#edit_article)
+***************************************************************/
+
+
+#edit_product .btn-modify {
+    font-family: 'Love Ya Like A Sister', cursive;
+}
+
+
+/***************************************************************
+PAGE A propos (#a_propos)
+***************************************************************/
+
+#a_propos section {
+    margin: 5%;
+}
+
+#a_propos .staff .picture img {
+    width: 60%;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px #990000;
+    margin: 3%;
+}
+
+#a_propos .staff .picture {
+    margin: 20px auto;
+}
+
+#a_propos .logo {
+    font-size: 4em;
+}
+
+
+/***************************************************************
+FOOTER & INFO FOOTER
+***************************************************************/
+#inf_foot {
+    margin: auto;
+}
+
+#inf_foot i {
+    margin-top: 0.8em;
+    font-size: 1.5em;
+}
+
+#inf_foot .inf:hover {
+    color: #CF1717;
+}
+
+#inf_foot h5 {
+    font-size: 0.9em;
+}
+
+#inf_foot p {
+    font-size: 0.8em;
+}
+
+
+footer {
+    /* display: inline-block; */
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    padding: 20px 0;
+    background: rgba(1, 1, 1, 0.8);
+    border-top: 3px solid #CF1717;
+    border-bottom: 3px solid #CF1717;
+    color: #fff;
+}
+
+footer a {
+    color: #fff;
+}
+
+
+/*************************************************************** 
+MEDIA QUERIES 
+***************************************************************/
+
+/* iphone */
+@media (min-width: 375px) {
+    nav{
+        margin: -0.5em;
+    }
+}
+@media (min-width: 414px) {
+    nav{
+        margin: auto;
+    }
+}
+/* tablettes */
+@media (min-width: 576px) {
+
+    h1 {
+        font-size: 2.2em;
+    }
+
+    body {
+        font-size: 1.2em;
+    }
+
+    /* Accueil */
+    #home .staff .member-top {
+        margin-bottom: 20%
+    }
+
+    /* Shop */
+    #show_products .card-body {
+        height: 520px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
+/* pc */
+@media (min-width: 992px) {
+
+
+    /* Header */
+    header {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    nav {
+        margin: auto;
+        padding: 20px 60px !important;
+    }
+
+}
