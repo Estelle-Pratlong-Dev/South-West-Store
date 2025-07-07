@@ -2,82 +2,114 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductsRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProductsRepository::class)]
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\ProductsRepository")
+ */
 class Products
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $brand;
 
-    #[ORM\Column(length: 255)]
-    private ?string $reference = null;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $model;
 
-    #[ORM\Column(length: 255)]
-    private ?string $size = null;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $sku;
 
-    #[ORM\Column(length: 255)]
-    private ?string $color = null;
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $shoe_size;
 
-    #[ORM\Column]
-    private ?float $SalePrice = null;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $color;
 
-    #[ORM\Column]
-    private ?float $PurchasePrice = null;
+    /**
+     * @ORM\Column(type="decimal", precision=6, scale=2)
+     */
+    private $price;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
-    private ?Brands $brandId = null;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picture1;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_date = null;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture2;
 
-    #[ORM\Column]
-    private ?int $created_by = null;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture3;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getBrand(): ?int
     {
-        return $this->title;
+        return $this->brand;
     }
 
-    public function setTitle(string $title): static
+    public function setBrand(int $brand): self
     {
-        $this->title = $title;
+        $this->brand = $brand;
 
         return $this;
     }
 
-    public function getReference(): ?string
+    public function getModel(): ?string
     {
-        return $this->reference;
+        return $this->model;
     }
 
-    public function setReference(string $reference): static
+    public function setModel(string $model): self
     {
-        $this->reference = $reference;
+        $this->model = $model;
 
         return $this;
     }
 
-    public function getSize(): ?string
+    public function getSku(): ?string
     {
-        return $this->size;
+        return $this->sku;
     }
 
-    public function setSize(string $size): static
+    public function setSku(string $sku): self
     {
-        $this->size = $size;
+        $this->sku = $sku;
+
+        return $this;
+    }
+
+    public function getShoeSize(): ?float
+    {
+        return $this->shoe_size;
+    }
+
+    public function setShoeSize(float $shoe_size): self
+    {
+        $this->shoe_size = $shoe_size;
 
         return $this;
     }
@@ -87,69 +119,57 @@ class Products
         return $this->color;
     }
 
-    public function setColor(string $color): static
+    public function setColor(string $color): self
     {
         $this->color = $color;
 
         return $this;
     }
 
-    public function getSalePrice(): ?float
+    public function getPrice(): ?string
     {
-        return $this->SalePrice;
+        return $this->price;
     }
 
-    public function setSalePrice(float $SalePrice): static
+    public function setPrice(string $price): self
     {
-        $this->SalePrice = $SalePrice;
+        $this->price = $price;
 
         return $this;
     }
 
-    public function getPurchasePrice(): ?float
+    public function getPicture1(): ?string
     {
-        return $this->PurchasePrice;
+        return $this->picture1;
     }
 
-    public function setPurchasePrice(float $PurchasePrice): static
+    public function setPicture1(string $picture1): self
     {
-        $this->PurchasePrice = $PurchasePrice;
+        $this->picture1 = $picture1;
 
         return $this;
     }
 
-    public function getBrandId(): ?Brands
+    public function getPicture2(): ?string
     {
-        return $this->brandId;
+        return $this->picture2;
     }
 
-    public function setBrandId(?Brands $brandId): static
+    public function setPicture2(?string $picture2): self
     {
-        $this->brandId = $brandId;
+        $this->picture2 = $picture2;
 
         return $this;
     }
 
-    public function getCreatedDate(): ?\DateTimeInterface
+    public function getPicture3(): ?string
     {
-        return $this->created_date;
+        return $this->picture3;
     }
 
-    public function setCreatedDate(\DateTimeInterface $created_date): static
+    public function setPicture3(?string $picture3): self
     {
-        $this->created_date = $created_date;
-
-        return $this;
-    }
-
-    public function getCreatedBy(): ?int
-    {
-        return $this->created_by;
-    }
-
-    public function setCreatedBy(int $created_by): static
-    {
-        $this->created_by = $created_by;
+        $this->picture3 = $picture3;
 
         return $this;
     }
