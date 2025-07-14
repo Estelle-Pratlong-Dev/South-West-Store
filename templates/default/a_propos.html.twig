@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}A propos du shop
+{% endblock %}
+
+{% block body %}
+
+    <main id="a_propos" class="container">
+
+
+        <section>
+            <h3>Nous contacter</h3>
+            <p>N'hésitez pas à nous contacter pour toute question en utilisant
+                <a href="{{ path('contact') }}">le formulaire de contact</a>, nous vous répondrons en 24h maximum. Vous pouvez également nous contacter par téléphone du lundi au vendredi de 11h à 17h au 06 80 66 88 20.</p>
+        </section>
+
+        <section>
+            <h3>Nous suivre</h3>
+            <p>Si vous voulez en savoir plus sur nos dernières sorties, nos coups de coeur et échanger avec nous, vous pouvez également nous rejoindre sur différents réseaux sociaux :</p>
+            <div class="logo row text-center">
+                <div class="col-6">
+                    <a href="#">
+                        <i class="fab fa-facebook-square"></i>
+                    </a>
+                </div>
+                <div class="col-6">
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+                <div class="col-6">
+                    <a href="#">
+                        <i class="fab fa-snapchat-square"></i>
+                    </a>
+                </div>
+                <div class="col-6">
+                    <a href="#">
+                        <i class="fab fa-twitter-square"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="staff">
+            <div class=" text-center container">
+                <h2>Presentation du staff :</h2>
+                <p>Nous sommes des passionnés de sneakers et de mode de longue date, toujours prêts à pouvoir vous satisfaire, trouver le produit que vous recherchez ou vous conseiller pour vos achats sur internet.</p>
+                <div class="row justify-content-around">
+                    <div class="col-md-5 picture">
+                        <h3>
+                            Boris Gomes</h3>
+                        <img src="img/home/staff/boris.jpg" alt="Photo Boris">
+                    </div>
+                    <div class="col-md-5 picture">
+                        <h3>Estelle Pratlong</h3>
+                        <img src="img/home/staff/estelle.jpg" alt="Photo Estelle">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <img class="col-md-3 logo" src="/img/South-West-Store-Logo.png" alt="Logo">
+                </div>
+                <div class="row justify-content-around">
+                    <div class="col-md-5 picture">
+                        <h3>Fabien Puech</h3>
+                        <img src="img/home/staff/fabien.jpg" alt="Photo Fabien">
+
+                    </div>
+                    <div class="col-md-5 picture">
+                        <h3>Kévin Ricou</h3>
+                        <img src="img/home/staff/kevin.jpg" alt="Photo Kévin">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+{% endblock %}

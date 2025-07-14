@@ -1,0 +1,16 @@
+/vendor/
+/var/
+/.env
+/.env.local
+/.env.local.php
+/.env.test
+/.env.test.local
+/.phpunit.result.cache
+/phpunit.xml
+/.idea/
+/*.log
+/node_modules/
+/public/bundles/
+/public/build/
+/build/
+/.DS_Store

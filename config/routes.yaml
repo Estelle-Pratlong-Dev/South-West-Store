@@ -1,0 +1,157 @@
+#***************************************************************
+#************************ DIVERS *******************************
+#***************************************************************
+
+homepage:
+  path: /
+  controller: App\Controller\DefaultController::index
+
+mentions:
+  path: /mentions
+  controller: App\Controller\DefaultController::mentions
+
+cgv:
+  path: /cgv
+  controller: App\Controller\DefaultController::cgv
+
+contact:
+  path: /contact
+  controller: App\Controller\ContactController::contactUs
+  
+a_propos:
+  path: /a-propos
+  controller: App\Controller\DefaultController::aPropos
+
+#***************************************************************
+#************************ UTILISATEUR **************************
+#***************************************************************
+
+user_session:
+  path: profile/session
+  controller: App\Controller\UserController::index
+
+user_edit_profile:
+  path: /profile/user-edit-profile
+  controller: App\Controller\UserController::userEditProfile
+
+user_orders:
+  path: /profile/user-orders
+  controller: App\Controller\OrdersController::userOrders
+
+delete_profile:
+  path: /profile/delete-profile/{id}
+  controller: App\Controller\UserController::deleteProfile
+  requirements:
+    id: '\d+'
+  
+
+#**** REGISTER / LOGIN / LOGOUT ****
+
+app_register:
+  path: /register
+  controller: App\Controller\UserController::addUser
+
+app_login:
+  path: /login
+  controller: App\Controller\SecurityController::login
+
+app_logout:
+  path: /logout
+  controller: App\Controller\DefaultController::index
+
+
+#**** MOT DE PASSE OUBLIE ****
+
+app_forgotten_password:
+  path: /forgotten-password
+  controller: App\Controller\SecurityController::forgottenPassword
+
+app_reset_password:
+  path: /reset-password/{token}
+  controller: App\Controller\SecurityController::resetPassword
+
+
+#***************************************************************
+#************************** ADMIN ******************************
+#***************************************************************
+
+add_product:
+  path: /admin/add-product
+  controller: App\Controller\ProductsController::addProducts
+
+modify_product:
+  path: /admin/modify-product
+  controller: App\Controller\ProductsController::modifyProducts
+
+# Chargement des infos en ajax
+edit_products_ajax:
+  path: /admin/ajax/load-product
+  controller: App\Controller\ProductsController::ajaxEdit
+
+# Envoi des nouvelles infos en ajax
+edit_validate:
+  path: /admin/ajax/edit-product
+  controller: App\Controller\ProductsController::ajaxEditValidate
+  
+delete_products:
+  path: /admin/delete-product/{id}
+  controller: App\Controller\ProductsController::getProductsDeleteAction
+  requirements:
+      id: '\d+'
+
+admin_orders:
+  path: /admin/admin-orders
+  controller: App\Controller\OrdersController::adminOrders
+
+
+
+#***************************************************************
+#************************* PRODUCTS ****************************
+#***************************************************************
+
+show_products:
+  path: /products/shop-index
+  controller: App\Controller\ProductsController::showProducts
+
+view_details:
+  path: /products/view-details-shoes/{id}
+  controller: App\Controller\ProductsController::viewDetails
+  requirements:
+    id: '\d+'
+
+search_products:
+  path: /products/search-products
+  controller: App\Controller\ProductsController::searchProducts
+
+
+#***************************************************************
+#*********************** CART SHOP ****************************
+#***************************************************************
+
+cart_details:
+  path: /products/cart-details/
+  controller: App\Controller\ProductsController::viewCart
+
+delete_cart_product:
+  path: /products/delete-cart-product/{key}
+  controller: App\Controller\ProductsController::deleteCartProduct
+  requirements:
+    key: '\d+'
+
+clean_cart:
+  path: /products/clean-cart
+  controller: App\Controller\ProductsController::cleanCart
+
+validate_order:
+  path: /products/validate-order
+  controller: App\Controller\ProductsController::validateOrder
+
+buy_cart:
+  path: /products/buy-cart
+  controller: App\Controller\ProductsController::buy
+
+
+
+
+
+

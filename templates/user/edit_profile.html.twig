@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mes infos
+
+{% endblock %}
+
+{% block body %}
+
+    <main id="user_edit_profile" class="container">
+
+        <h2>Modifier mes infos</h2>
+
+        {% if errors %}
+            <div class="alert alert-danger col-md-8">{{ errors|join('<br>')|raw }}</div>
+        {% endif %}
+
+        {% if msg %}
+            <div class="alert alert-success col-md-8">{{ msg }}</div>
+        {% endif %}
+
+        <form method="post" class="col-md-8">
+
+            <div class="row">
+                <div class="col">
+                    <input type="text" name="name" class="form-control" placeholder="Nom" value="{{ user.getLastName() ?? '' }}">
+                </div>
+                <div class="col">
+                    <input type="text" name="firstname" class="form-control" placeholder="Prénom" value="{{ user.getFirstName() ?? '' }}">
+                </div>
+            </div>
+
+            <input type="text" name="address" class="form-control" placeholder="Adresse" value="{{ user.getAddress() ?? '' }}">
+
+            <input type="text" name="complement" class="form-control" placeholder="Complément" value="{{ user.getAdditionalAddress() ?? '' }}">
+
+            <div class="row">
+                <div class=" col">
+                    <input type="text" name="city" class="form-control" placeholder="Ville" value="{{ user.getCity() ?? '' }}">
+                </div>
+                <div class="col">
+                    <input type="number" name="pC" class="form-control" placeholder="Code postal" value="{{ user.getPostalCode() ?? '' }}">
+                </div>
+            </div>
+
+            <input type="phone" name="phone" class="form-control" placeholder="Télephone" value="{{ user.getPhoneNumber() ?? '' }}">
+
+            <input type="email" name="email" class="form-control" placeholder="Email" value="{{ user.getEmail() ?? '' }}">
+
+            <button class="btn-lg btn-form" type="submit">
+                Modifier
+            </button>
+
+        </form>
+
+    </main>
+
+
+{% endblock %}

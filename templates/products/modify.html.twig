@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un produit
+{% endblock %}
+
+{% block body %}
+
+    <main id="edit_product">
+
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Marque
+                            <a href="{{ current_url }}?orderby=brand&orderdir=asc">
+                                <i class="fas fa-caret-up"></i>
+                            </a>
+                            <a href="{{ current_url }}?orderby=brand&orderdir=desc">
+                                <i class="fas fa-caret-down"></i>
+                            </a>
+                        </th>
+
+                        <th>SKU
+                            <a href="{{ current_url }}?orderby=sku&orderdir=asc">
+                                <i class="fas fa-caret-up"></i>
+                            </a>
+                            <a href="{{ current_url }}?orderby=sku&orderdir=desc">
+                                <i class="fas fa-caret-down"></i>
+                            </a>
+                        </th>
+
+                        <th>Modèle
+                            <a href="{{ current_url }}?orderby=model&orderdir=asc">
+                                <i class="fas fa-caret-up"></i>
+                            </a>
+                            <a href="{{ current_url }}?orderby=model&orderdir=desc">
+                                <i class="fas fa-caret-down"></i>
+                            </a>
+                        </th>
+
+                        <th>Couleurs
+                            <a href="{{ current_url }}?orderby=color&orderdir=asc">
+                                <i class="fas fa-caret-up"></i>
+                            </a>
+                            <a href="{{ current_url }}?orderby=color&orderdir=desc">
+                                <i class="fas fa-caret-down"></i>
+                            </a>
+                        </th>
+                        <th>Taille
+                            <a href="{{ current_url }}?orderby=shoe_size&orderdir=asc">
+                                <i class="fas fa-caret-up"></i>
+                            </a>
+                            <a href="{{ current_url }}?orderby=shoe_size&orderdir=desc">
+                                <i class="fas fa-caret-down"></i>
+                            </a>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% if products is not null %}
+                        {% for product in products %}
+                            <tr>
+                                <td>{{ brandsList[product.getBrand()] }}</td>
+                                <td>{{ product.getSku() }}</td>
+                                <td>{{ product.getModel()|slice(0,15) ~ '...'  }}</td>
+                                <td class="text-capitalize">{{ product.getColor() }}</td>
+                                <td>{{ sizesList[product.getShoeSize()] }}</td>
+                                <td>
+                                    <a class="btn btn-success" href="{{path('view_details',{id:product.getId()})}}">
+                                        Détails
+                                    </a>
+
+                                    <button type="button" class="btn btn-secondary open-modal-edit btn-modify" data-id="{{ product.getId() }}">
+                                        Modifier
+                                    </button>
+
+                                    <a href="{{ path ('delete_products',{id : product.getId()}) }}" onclick="return confirm('Etes vous sur de vouloir supprimer?')" class="btn btn-danger">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editer :</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="brand">Marque</label>
+                                <select name="brand" id="brand" class="form-control">
+                                    <option selected>-- Sélectionnez une marque --</option>
+                                    {% for key, brand in brandsList %}
+                                        <option value="{{key}}">{{brand}}</option>
+                                    {% endfor %};
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="model">Model</label>
+                                <input type="text" class="form-control" id="model" name="model">
+                            </div>
+                            <div class="form-group">
+                                <label for="sku">Sku</label>
+                                <input type="text" class="form-control" id="sku" name="sku">
+                            </div>
+                            <div class="form-group">
+                                <label for="size">Pointure</label>
+                                <select name="size" id="size" class="form-control">
+                                    <option value="0" selected>-- Sélectionnez une taille --</option>
+                                    {% for key, size in sizesList %}
+                                        <option value="{{key}}">{{size}}</option>
+                                    {% endfor %};
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="color">Couleurs</label>
+                                <select name="color" id="color" class="form-control">
+                                    <option value="0" selected>-- Sélectionnez la couleur --</option>
+                                    {% for key, color in colors %}
+                                        <option value="{{key}}" {% if colors == key %} {%endif%} style="{{ color }}">{{key}}</option>
+                                    {% endfor %};
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Prix</label>
+                                <input type="text" class="form-control" id="price" name="price">
+                            </div>
+                            <div>
+                                <input type="hidden" name="id" value="id">
+                            </div>
+                            <button class="btn btn-success" type="submit">Valider</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block javascripts %}
+        <script>
+            $('.open-modal-edit').click(function (e) {
+                e.preventDefault();
+                $('#edit').modal('show');
+                var editId = $(this).data('id');
+                // affichage des info d'origine dans le form
+                $.post('{{ path ('edit_products_ajax') }}', {
+                    id: editId
+                }, function (retourJSON) {
+                    $('#edit form').find('[name="brand"]').val(retourJSON.brand);
+                    $('#edit form').find('[name="model"]').val(retourJSON.model);
+                    $('#edit form').find('[name="sku"]').val(retourJSON.sku);
+                    $('#edit form').find('[name="size"]').val(retourJSON.size);
+                    $('#edit form').find('[name="color"]').val(retourJSON.color);
+                    $('#edit form').find('[name="price"]').val(retourJSON.price);
+                    $('#edit form').find('[name="id"]').val(retourJSON.id);
+                });
+
+            });
+
+            $('#edit form').submit(function (e) {
+                e.preventDefault();
+                $('#edit').modal('show');
+                var form = $(this);
+
+
+                // envoie des données au php
+                $.post('{{ path ('edit_validate') }}', form.serialize(), function (response) {
+                    if (response.status == 'ok') {
+                        Swal.fire({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Article modifié',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        // redirection si changement ok
+                        window.location.href = "/admin/modify-product";
+                    } else {
+                        alert(response.message);
+                    }
+                });
+            });
+
+        </script>
+    {% endblock %}

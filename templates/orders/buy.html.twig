@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Validation d'achat
+{% endblock %}
+
+{% block body %}
+
+
+    <main id="buy-cart" class="container">
+        <h2>Récapitulatif de commande</h2>
+
+        {% for error in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endfor %}
+
+        <div class="table-responsive">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Marque</th>
+                        <th>Modèle</th>
+                        <th>SKU</th>
+                        <th>Taille</th>
+                        <th>Prix Unitaire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, cart_item in cart_items %}
+                        <tr>
+                            <td>{{ brandsList[cart_item.brand] }}</td>
+                            <td>{{ cart_item.model }}</td>
+                            <td>{{ cart_item.sku }}</td>
+                            <td>{{ cart_item.shoe_size }}</td>
+                            <td>{{ cart_item.price|number_format(2, ',', ' ') }}
+                                €</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <th>Prix total :</th>
+                        <td>
+                            {{ app.session.get('total_price')|number_format(2, ',', ' ') }}
+                            €</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+
+        <h2>Informations de livraison</h2>
+
+
+        <div class="col-md-4">
+            <p>
+                <strong>Email:
+                </strong>
+                {{ user.getEmail() }}
+            </p>
+            <p>
+                <strong>Nom :
+                </strong>
+                {{ user.getLastName() }}
+            </p>
+            <p>
+                <strong>Prénom :
+                </strong>
+                {{ user.getFirstName() }}
+            </p>
+            <p>
+                <strong>Adresse :
+                </strong>
+                {{ user.getAddress() }}
+            </p>
+            <p>
+                <strong>Complément d'adresse :
+                </strong>
+                {{ user.getAdditionalAddress() }}
+            </p>
+            <p>
+                <strong>Code Postal :</strong>
+                {{ user.getPostalCode() }}
+            </p>
+            <p>
+                <strong>Ville :</strong>
+                {{ user.getCity() }}
+            </p>
+            <p>
+                <strong>Téléphone :</strong>
+                {{ user.getPhoneNumber() }}
+            </p>
+
+            <div class="text-center">
+                <a href="{{ path ('user_edit_profile') }}" class="btn btn-lg btn-secondary" type="submit">Modifier</a>
+
+                <a id="valid-order" href="{{ path ('buy_cart') }}" class="btn btn-lg btn-primary">Valider</a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+
+        $("#valid-order").click(function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Etes-vous sur(e) de vouloir valider votre commande?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui !',
+                cancelButtonText: 'Non !'
+            }).then((result) => {
+                if (result.value) {
+                    $.get('{{ path ('buy_cart') }}', function (res) {
+
+                        Swal.fire('Validé', 'La commande à été validée', 'success').then((result) => {
+                            window.location.assign('{{ path ('user_orders') }}');
+                        });
+                    });
+                };
+            });
+
+        });
+    </script>
+{% endblock %}
