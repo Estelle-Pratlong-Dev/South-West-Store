@@ -1,6 +1,7 @@
 /vendor/
 /var/
 /.env
+/.env.test
 /.env.local
 /.env.local.php
 /.env.test.local
