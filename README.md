@@ -41,7 +41,7 @@ Le projet ayant été développé avec une ancienne version de Symfony nécessit
 
 Une démonstration vidéo permet de parcourir les principales fonctionnalités de l'application :
 
-▶️ **[Voir la démonstration](LIEN_YOUTUBE)**
+▶️ **[Voir la démonstration](https://www.youtube.com/watch?v=oRmfMqgVgf0)**
 
 ## Contexte
 
